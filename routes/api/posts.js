@@ -190,9 +190,9 @@ router.post(
             .status(404)
             .json({ commentnotexists: "Comment does not exist" });
         }
-        const removeIndex = post.likes
-          .map((item) => item.user.toString())
-          .indexOf(req.user.id);
+        const removeIndex = post.comments
+          .map((item) => item._id.toString())
+          .indexOf(req.params.comment_id);
 
         post.likes.splice(removeIndex, 1);
         post.save().then((post) => res.json(post));
