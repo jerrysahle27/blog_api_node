@@ -89,7 +89,7 @@ router.get("/user /:user_id ", (req, res) => {
 // @route post api/profile
 // @desc create or edit user profile
 // @access private
-router.get(
+router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
