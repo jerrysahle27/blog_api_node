@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import propTypes from "prop-types";
+import { connect } from "react-redux";
 class Landing extends Component {
   render() {
     return (
@@ -29,4 +30,12 @@ class Landing extends Component {
     );
   }
 }
-export default Landing;
+Landing.propTypes = {
+  auth: propTypes.object.isRequired,
+  errors: propTypes.object.isRequired,
+};
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+export default connect(mapStateToProps)(Landing);
