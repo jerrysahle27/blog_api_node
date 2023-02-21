@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import connect from "react-redux";
-import { getCurrenhtProfile } from "../../actions/profileActions";
+import { getCurrentProfile } from "../../actions/profileActions";
 import Spinner from "../common/Spinner";
+import ProfileActions from "./ProfileActions";
 class Dashboard extends Component {
   componentDidMount() {
-    this.props.getCurrenhtProfile();
+    this.props.getCurrentProfile();
   }
 
   render() {
@@ -17,7 +18,18 @@ class Dashboard extends Component {
       dashboardContent = <Spinner />;
     } else {
       if (Object.keys(profile).length > 0) {
-        dashboardContent = <h1>ToDo: Dislay profile</h1>;
+        dashboardContent = (
+          <div>
+            <p className="lead text-muted">
+              Welcome <Link to={"/profile/${profile.handle}"}>{user.name}</Link>
+            </p>
+            <ProfileActions />
+            <div style={{ marginBottom: "60px" }} />
+            <button onClick={this.onDeleteClick.bind(this)} className="btn btn-danger">
+              Delete My Account
+            </button>
+          </div>
+        );
       } else {
         dashboardContent = (
           <div>

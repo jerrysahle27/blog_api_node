@@ -1,7 +1,12 @@
 import axios from "axios";
-import { GET_PROFILE, CLEAR_CURRENT_PROFILE, PROFILE_LOADING } from "./types";
+import {
+  GET_PROFILE,
+  CLEAR_CURRENT_PROFILE,
+  PROFILE_LOADING,
+  GET_ERRORS,
+} from "./types";
 // Get current profile
-export const getCurrenhtProfile = () => (dispatch) => {
+export const getCurrentProfile = () => (dispatch) => {
   dispatch(setProfileLoading());
   axios
     .get("/api/profile")
@@ -18,12 +23,24 @@ export const getCurrenhtProfile = () => (dispatch) => {
       })
     );
 };
+// Create Profile
+export const CreateProfile = (profileData, history) => (dispatch) => {
+  axios
+    .post("/api/profile", profileData)
+    .then((res) => history.push("/dashboard"))
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
+};
 export const setProfileLoading = () => {
   return {
     type: PROFILE_LOADING,
   };
 };
-// lear profile
+// clear profile
 export const clearCurrentProfile = () => {
   return {
     type: CLEAR_CURRENT_PROFILE,
