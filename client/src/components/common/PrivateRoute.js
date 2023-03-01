@@ -1,7 +1,7 @@
 import React from "react";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 const PrivateRoute = ({ component: Component, auth, ...rest }) => {
   <Route
     {...rest}
@@ -9,7 +9,7 @@ const PrivateRoute = ({ component: Component, auth, ...rest }) => {
       auth.isAuthenticated === true ? (
         <Component {...props} />
       ) : (
-        <Redirect to="/login" />
+        <Link to="/login" />
       )
     }
   />;
