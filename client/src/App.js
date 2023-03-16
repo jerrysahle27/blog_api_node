@@ -41,7 +41,7 @@ const App = () => {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route exact path="/" element={<Landing />} />
+          {/* <Route exact path="/" element={<Landing />} /> */}
           {/* <div className="container"> */}
           {/* <Route exact path="/register" element={<Register />} />
               <Route exact path="/login" element={<Login />} />

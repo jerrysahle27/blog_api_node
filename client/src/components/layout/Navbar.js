@@ -23,7 +23,7 @@ const Navbar = () => {
       <li className="nav-item">
         <a
           href="#"
-          onClick={this.onLogoutClick.bind(this)}
+          // onClick={this.onLogoutClick.bind(this)}
           className="nav-link"
         >
           {/* <img
@@ -54,37 +54,44 @@ const Navbar = () => {
   );
 
   return (
-    <div>
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
-        <div className="container">
-          <Link className="navbar-brand" to="/landing">
-            DevConnector
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#mobile-nav"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-          <div className="collapse navbar-collapse" id="mobile-nav">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/profiles">
-                  {" "}
-                  Developers
-                </Link>
-              </li>
-            </ul>
-
-            {/* {isAuthenticated ? authLinks : guestLinks} */}
-          </div>
-        </div>
-      </nav>
+    <div className="container mx-auto bg-gray-200 rounded-xl shadow border p-8 m-10">
+      <p className="text-3xl text-gray-700 font-bold mb-5">Welcome!</p>
+      <p className="text-gray-500 text-lg">React and Tailwind CSS in action</p>
     </div>
   );
+
+  // <div>
+  //   <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+  //     <div className="container">
+  //       <Link className="navbar-brand" to="/landing">
+  //         DevConnector
+  //       </Link>
+  //       <button
+  //         className="navbar-toggler"
+  //         type="button"
+  //         data-toggle="collapse"
+  //         data-target="#mobile-nav"
+  //       >
+  //         <span className="navbar-toggler-icon"></span>
+  //       </button>
+
+  //       <div className="collapse navbar-collapse" id="mobile-nav">
+  //         <ul className="navbar-nav mr-auto">
+  //           <li className="nav-item">
+  //             <Link className="nav-link" to="/profiles">
+  //               {" "}
+  //               Developers
+  //             </Link>
+  //           </li>
+  //         </ul>
+
+  {
+    /* {isAuthenticated ? authLinks : guestLinks} */
+  }
+  //       </div>
+  //     </div>
+  //   </nav>
+  // </div>
 };
 // }
 // Navbar.propTypes = {
