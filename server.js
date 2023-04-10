@@ -23,15 +23,6 @@ app.use(passport.initialize());
 //pass passport to config
 require("./config/passport.js")(passport);
 
-//connect mongoose
-mongoose
-  .connect(db)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
-
-//routes
-app.use("/api/users", users);
-app.use("/api/profiles", profile);
 app.use("/api/posts", posts);
 
 const port = process.env.PORT || 5000;
