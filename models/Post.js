@@ -6,6 +6,10 @@ const PostSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users",
   },
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: "postcategory",
+  },
   text: {
     type: String,
     required: true,

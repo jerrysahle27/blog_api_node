@@ -18,6 +18,9 @@ router.get("/test", (req, res) => res.json({ msg: "posts work" }));
 router.get("/", (req, res) => {
   Post.find()
     .sort({ date: -1 })
+    .populate("user")
+    .populate("category")
+    .exec()
     .then((posts) => res.json(posts))
     .catch((err) => res.status(404));
 });
@@ -33,15 +36,15 @@ router.get("/:id", (req, res) => {
     );
 });
 
-// @route GET api/posts
+// @route POST api/posts
 // @desc Create post
 // @access Private
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const { errors,isvalid } = validatePostInput(req.body);
-    console.log(isvalid)
+    const { errors, isvalid } = validatePostInput(req.body);
+    console.log(isvalid);
     if (!isvalid) {
       return res.status(400).json(errors);
     }
@@ -51,6 +54,7 @@ router.post(
       name: req.body.name,
       avatar: req.body.avatar,
       user: req.user.id,
+      category: req.body.category,
     });
     newPost.save().then((post) => res.json(post));
   }
