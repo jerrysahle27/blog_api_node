@@ -10,15 +10,13 @@ const PostSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "postcategory",
   },
-  text: {
+  title: {
     type: String,
     required: true,
   },
-  name: {
+  description: {
     type: String,
-  },
-  avatar: {
-    type: String,
+    required: true,
   },
   likes: [
     {
