@@ -2,24 +2,16 @@ const validator = require("validator");
 const isEmpty = require("./is-empty");
 module.exports = function validateProfileInput(data) {
   let errors = {};
-  data.handle = !isEmpty(data.handle) ? data.handle : "";
   data.skill = !isEmpty(data.skill) ? data.skill : "";
   data.status = !isEmpty(data.status) ? data.status : "";
 
-  if (validator.isEmpty(data.handle)) {
-    errors.handle = "profile handle is required";
-  }
   if (validator.isEmpty(data.skill)) {
     errors.skill = "skill is required";
   }
   if (validator.isEmpty(data.status)) {
     errors.status = "status is required";
   }
-  if (!isEmpty(data.website)) {
-    if (!validator.isURL(data.website)) {
-      errors.website = "website url is invalid";
-    }
-  }
+
   if (!isEmpty(data.Youtube)) {
     if (!validator.isURL(data.Youtube)) {
       errors.Youtube = "Youtube url is invalid";
