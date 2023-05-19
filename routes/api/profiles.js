@@ -27,6 +27,7 @@ router.get(
     let errors = {};
     profile
       .findOne({ user: req.user.id })
+      .populate("user")
       .then((profile) => {
         if (!profile) {
           errors.noprofile = "user does not have profile";
@@ -102,7 +103,6 @@ router.post(
     }
 
     if (req.body.bio) profileFields.bio = req.body.bio;
-    if (req.body.status) profileFields.status = req.body.status;
     if (req.body.githubusername)
       profileFields.githubusername = req.body.githubusername;
     ///social
@@ -116,8 +116,8 @@ router.post(
     if (req.body.linkedin)
       profileFields.Socialmedia.LinkedIn = req.body.linkedin;
 
-    if (!typeof req.body.skills == undefined) {
-      profileFields.skill = req.body.skills.split(",");
+    if (!typeof req.body.skills == []) {
+      profileFields.skill = req.body.skills;
     }
     profile.findOne({ user: req.user.id }).then((profile) => {
       if (profile) {
@@ -166,7 +166,6 @@ router.post(
         from: req.body.from,
         to: req.body.to,
         current: req.body.current,
-        description: req.body.description,
       };
       profile.experience.unshift(newExp);
       profile.save().then((profile) => res.json(profile));
@@ -195,7 +194,8 @@ router.post(
         current: req.body.current,
         description: req.body.description,
       };
-      profile.education.unshift(newEdu);
+      // console.log(profile)
+      profile.Education.unshift(newEdu);
       profile.save().then((profile) => res.json(profile));
     });
   }
@@ -219,21 +219,21 @@ router.delete(
       .catch((err) => res.status(404).json(err));
   }
 );
-// @route DELETE api/profile/education/:edu_id
+// @route DELETE api/profile/education/:id
 // @desc Delete education from profile
 // @access private
 
 router.delete(
-  "/education/:edu_id",
+  "/education/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Profile.findOne({ user: req.user.id })
       .then((profile) => {
-        const removeIndex = profile.education
-          .map((item) => item.id)
-          .indexOf(req.params.edu_id);
-        profile.education.splice(removeIndex, 1);
-        profile.save().then((profile) => res.json(profile));
+          const removeIndex = profile.Education
+            .map((item) => item.id)
+            .indexOf(req.params.id);
+          profile.Education.splice(removeIndex, 1);
+          profile.save().then((profile) => res.json(profile));
       })
       .catch((err) => res.status(404).json(err));
   }

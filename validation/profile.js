@@ -2,15 +2,6 @@ const validator = require("validator");
 const isEmpty = require("./is-empty");
 module.exports = function validateProfileInput(data) {
   let errors = {};
-  data.skill = !isEmpty(data.skill) ? data.skill : "";
-  data.status = !isEmpty(data.status) ? data.status : "";
-
-  if (validator.isEmpty(data.skill)) {
-    errors.skill = "skill is required";
-  }
-  if (validator.isEmpty(data.status)) {
-    errors.status = "status is required";
-  }
 
   if (!isEmpty(data.Youtube)) {
     if (!validator.isURL(data.Youtube)) {

@@ -14,10 +14,6 @@ const ProfileSchema = new Schema({
     type: String,
     max: 20,
   },
-  status: {
-    type: String,
-    required: true,
-  },
   githubusername: {
     type: String,
   },
@@ -47,9 +43,6 @@ const ProfileSchema = new Schema({
 
   Education: [
     {
-      title: {
-        type: String,
-      },
       School: {
         type: String,
       },
