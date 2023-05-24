@@ -6,7 +6,7 @@ const doc = {
     title: "SocialNetworkApi",
     description: "Social Network Api for sharing information.",
   },
-  host: "localhost:5000",
+  host: "https://socialnetwok-api.onrender.com/",
   basePath: "/",
   schemes: ["http", "https"],
   consumes: ["application/json"],
