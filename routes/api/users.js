@@ -9,11 +9,14 @@ const router = express.Router();
 const validateregisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
-
 // @route GET api/users/test
 // @desc Tests users route
 // @access public
-router.get("/test", (req, res) => res.json({ msg: "users work" }));
+router.get("/test", (req, res) =>
+  /* 	#swagger.tags = ['User']
+        #swagger.description = 'Endpoint to test inuser' */
+  res.json({ msg: "users work" })
+);
 
 // @route GET api/users/current
 // @desc Return current user
@@ -22,6 +25,8 @@ router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    /* 	#swagger.tags = ['User']
+        #swagger.description = 'Endpoint to get current logged in user' */
     res.send({
       id: req.user.id,
       Name: req.user.name,
@@ -30,12 +35,13 @@ router.get(
   }
 );
 
-
 // @route GET api/users/login
 // @desc Login user / Returning jwt token
 // @access public
 
 router.post("/login", (req, res) => {
+  /* 	#swagger.tags = ['User']
+        #swagger.description = 'Endpoint to login' */
   const { errors, isvalid } = validateLoginInput(req.body);
   if (!isvalid) {
     return res.status(400).json(errors);
@@ -75,6 +81,8 @@ router.post("/login", (req, res) => {
 // @desc Register user
 // @access public
 router.post("/register", (req, res) => {
+  /* 	#swagger.tags = ['User']
+        #swagger.description = 'Endpoint to register' */
   const { errors, isvalid } = validateregisterInput(req.body);
   if (!isvalid) {
     return res.status(400).json(errors);
@@ -111,6 +119,8 @@ router.post("/register", (req, res) => {
   });
 });
 router.post("/Users", (req, res) => {
+  /* 	#swagger.tags = ['User']
+        #swagger.description = 'Endpoint to get all users' */
   res.send({
     id: req.user.id,
     Name: req.user.name,

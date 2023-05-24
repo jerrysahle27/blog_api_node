@@ -7,6 +7,7 @@
     "client-install": "npm install --prefix view",
     "start": "node server.js",
     "server": "nodemon server.js",
+    "start-gendoc": "node swagger.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run client \" \"npm run server \""
   },

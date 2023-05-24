@@ -8,6 +8,8 @@ const validatePostCategoryInput = require("../../validation/postcategory");
 // @desc Tests postcategory route
 // @access Public
 router.get("/test", (req, res) =>
+  /* 	#swagger.tags = ['PostCategory']
+#swagger.description = 'Endpoint to Tests postcategory route' */
   res.json({
     msg: "post category work",
   })
@@ -16,6 +18,8 @@ router.get("/test", (req, res) =>
 // @desc Get postscategorys route
 // @access Public
 router.get("/", (req, res) =>
+  /* 	#swagger.tags = ['PostCategory']
+#swagger.description = 'Endpoint to Get All postcategory' */
   PostCategory.find()
     .then((postcategorys) => res.json(postcategorys))
     .catch((err) => res.status(404))
@@ -24,6 +28,8 @@ router.get("/", (req, res) =>
 // @desc Get postscategory by id route
 // @access Public
 router.get("/:id", (req, res) =>
+  /* 	#swagger.tags = ['PostCategory']
+#swagger.description = 'Endpoint to Get postscategory by id' */
   PostCategory.findById(req.params.id)
     .then((postcategory) => res.json(postcategory))
     .catch((err) =>
@@ -39,6 +45,8 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    /* 	#swagger.tags = ['PostCategory']
+#swagger.description = 'Endpoint to create postcategory ' */
     const { errors, isvalid } = validatePostCategoryInput(req.body);
     if (!isvalid) {
       return res.status(400).json(errors);

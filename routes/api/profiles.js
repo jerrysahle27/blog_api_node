@@ -15,7 +15,13 @@ const User = require("../../models/User");
 // @route GET api/profile/test
 // @desc Tests profile route
 // @access public
-router.get("/test", (req, res) => res.json({ msg: "profiles work" }));
+router.get("/test", (req, res) =>
+  /* 	#swagger.tags = ['Profile']
+#swagger.description = 'Endpoint to test profile' */
+  res.json({
+    msg: "profiles work",
+  })
+);
 
 // @route GET api/profile
 // @desc Get current user profile
@@ -24,6 +30,8 @@ router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    /* 	#swagger.tags = ['Profile']
+#swagger.description = 'Endpoint to Get current user profile' */
     let errors = {};
     profile
       .findOne({ user: req.user.id })
@@ -43,6 +51,8 @@ router.get(
 // @access public
 
 router.get("/all", (req, res) => {
+  /* 	#swagger.tags = ['Profile']
+#swagger.description = 'Endpoint to Get all profile' */
   const errors = {};
   Profile.find()
     .populate("user", ["name", "avatar"])
@@ -55,26 +65,13 @@ router.get("/all", (req, res) => {
     })
     .catch((err) => res.status(400).json({ profile: "There are no profiles" }));
 });
-// @route get api/profile/handle/:handle
-// @desc get profile by handle
-// @access public
-router.get("/handle/:handle", (req, res) => {
-  const errors = {};
-  Profile.findOne({ handle: req.params.handle })
-    .populate("user", ["name", "avatar"])
-    .then((profile) => {
-      if (!profile) {
-        errors.noprofile = "There is no profile for this user";
-        res.status(400).json(errors);
-      }
-      res.json(profile);
-    })
-    .catch((err) => res.status(400).json(err));
-});
+
 // @route get api/profile/user/:user_id
 // @desc get profile by user ID
 // @access public
 router.get("/user /:user_id ", (req, res) => {
+  /* 	#swagger.tags = ['Profile']
+#swagger.description = 'Endpoint to Get profile by user ID' */
   const errors = {};
   Profile.findOne({ user: req.params.user_id })
     .populate("user", ["name", "avatar"])
@@ -94,6 +91,8 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    /* 	#swagger.tags = ['Profile']
+#swagger.description = 'create or edit user profile' */
     const profileFields = {};
     profileFields.user = req.user.id;
 
@@ -154,6 +153,8 @@ router.post(
   "/experience",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    /* 	#swagger.tags = ['Profile']
+#swagger.description = 'Endpoint to add experience to profile' */
     const { errors, isvalid } = validateExperienceInput(req.body);
     if (!isvalid) {
       return res.status(400).json(errors);
@@ -180,6 +181,8 @@ router.post(
   "/education",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    /* 	#swagger.tags = ['Profile']
+#swagger.description = 'Endpoint to add education to profile' */
     const { errors, isvalid } = validateEducationInput(req.body);
     if (!isvalid) {
       return res.status(400).json(errors);
@@ -208,6 +211,8 @@ router.delete(
   "/experience/:exp_id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    /* 	#swagger.tags = ['Profile']
+#swagger.description = 'Endpoint to delete experience' */
     Profile.findOne({ user: req.user.id })
       .then((profile) => {
         const removeIndex = profile.experience
@@ -227,13 +232,15 @@ router.delete(
   "/education/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    /* 	#swagger.tags = ['Profile']
+#swagger.description = 'Endpoint to delete education' */
     Profile.findOne({ user: req.user.id })
       .then((profile) => {
-          const removeIndex = profile.Education
-            .map((item) => item.id)
-            .indexOf(req.params.id);
-          profile.Education.splice(removeIndex, 1);
-          profile.save().then((profile) => res.json(profile));
+        const removeIndex = profile.Education.map((item) => item.id).indexOf(
+          req.params.id
+        );
+        profile.Education.splice(removeIndex, 1);
+        profile.save().then((profile) => res.json(profile));
       })
       .catch((err) => res.status(404).json(err));
   }
@@ -243,9 +250,11 @@ router.delete(
 // @access private
 
 router.delete(
-  "/education/:edu_id",
+  "/user/:user_id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    /* 	#swagger.tags = ['Profile']
+#swagger.description = 'Endpoint to  Delete user and profile' */
     Profile.findOneAndRemove({ user: req.user.id })
       .then(() => {
         User.findOneAndRemove({
