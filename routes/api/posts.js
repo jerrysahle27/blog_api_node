@@ -153,16 +153,10 @@ router.post(
   (req, res) => {
     /* 	#swagger.tags = ['Post']
 #swagger.description = 'Endpoint to add comment' */
-    const { errors, isValid } = validatePostInput(req.body);
-    if (!isValid) {
-      return res.status(400).json(errors);
-    }
     Post.findById(req.params.id)
       .then((post) => {
         const newComment = {
           text: req.body.text,
-          name: req.body.name,
-          avatar: req.body.avatar,
           user: req.user.id,
         };
         post.comments.unshift(newComment);
